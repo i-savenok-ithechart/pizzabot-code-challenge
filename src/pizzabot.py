@@ -23,7 +23,7 @@ class Location:
 
 class LocationsList(list):
 
-    def pop_closest(self, to: Location) -> Location:  # remove and return closest, raise if empty
+    def pop_closest(self, to: Location) -> Location:  # remove and return closest, raise exception if empty
         assert len(self), 'Empty'
 
         closest = sorted(
@@ -98,7 +98,7 @@ class PizzaBotRouter:
 
         return actions_codes
 
-    def move_to(self, location: Location) -> List[str]:  # change bot location to lookup, return list of actions codes
+    def move_to(self, location: Location) -> List[str]:  # move bot to lookup location, return list of actions codes
         actions_codes = []
         if location.x >= self.bot_location.x:
             actions_codes += [Action.RIGHT] * (location.x - self.bot_location.x)

@@ -43,19 +43,11 @@ class FieldSize(Location):
 
 
 class Action:
-    UP = 1
-    DOWN = 2
-    LEFT = 3
-    RIGHT = 4
-    DROP_PIZZA = 0
-
-    DESCRIPTIONS = {
-        UP: 'N: Move north',
-        DOWN: 'S: Move south',
-        LEFT: 'W: Move west',
-        RIGHT: 'E: Move east',
-        DROP_PIZZA: 'D: Drop pizza',
-    }
+    UP = 'N'
+    DOWN = 'S'
+    LEFT = 'W'
+    RIGHT = 'E'
+    DROP_PIZZA = 'D'
 
 
 class Task:
@@ -64,7 +56,7 @@ class Task:
     field_size: FieldSize
 
     FIELD_SIZE_COORDINATES_REGEX = R'\d+x\d+'
-    HOUSE_COORDINATES_REGEX = R'\s\(\d+\,\s\d+\)'
+    HOUSE_COORDINATES_REGEX = R'\s\(\d+\,\s?\d+\)'
     VALID_ARG_REGEX = rf'{FIELD_SIZE_COORDINATES_REGEX}({HOUSE_COORDINATES_REGEX})+'
 
     def __init__(self, raw_task: str):
@@ -72,7 +64,7 @@ class Task:
 
         # receiving houses coordinates from arg
         houses_coordinates = [
-            coordinates[2:-1].split(', ')
+            coordinates[2:-1].replace(' ', '').split(',')
             for coordinates in re.findall(self.HOUSE_COORDINATES_REGEX, raw_task)
         ]
         self.houses_locations = LocationsList([
@@ -96,7 +88,7 @@ class Task:
 class PizzaBotRouter:
     bot_location: Location
 
-    def build_route(self, houses_locations: LocationsList) -> List[int]:
+    def build_route(self, houses_locations: LocationsList) -> List[str]:
         actions_codes = []
 
         for _ in range(len(houses_locations)):
@@ -106,7 +98,7 @@ class PizzaBotRouter:
 
         return actions_codes
 
-    def move_to(self, location: Location) -> List[int]:  # change bot location to lookup, return list of actions codes
+    def move_to(self, location: Location) -> List[str]:  # change bot location to lookup, return list of actions codes
         actions_codes = []
         if location.x >= self.bot_location.x:
             actions_codes += [Action.RIGHT] * (location.x - self.bot_location.x)
@@ -122,9 +114,7 @@ class PizzaBotRouter:
         return actions_codes
 
 
-def log_actions(actions_codes: List['int']):
-    for code in actions_codes:
-        _l(Action.DESCRIPTIONS[code])
+def log_actions(actions_codes: List['str']): _l(''.join(actions_codes))
 
 
 def proceed_input():

@@ -23,12 +23,12 @@ class TestPizzaBot:
             '9x9 (1, 5) (0, 0) (9, 9)',
             '1x1 (1, 0) (0, 0) (1, 1)',
             '1000x1000 (1000, 0) (500, 345) (2, 19)',
+            '1x1 (0,0)',
         ]
         for valid_arg in valid_args:
             Task(valid_arg)
 
         invalid_args = [
-            '1x1 (0,0)',
             '1x1 ',
             '1x1',
             '-1x1, (0, 0)',
@@ -81,6 +81,19 @@ class TestPizzaBot:
             (
                 [L(1, 1), L(1, 1), L(2, 2), L(2, 2), L(2, 2)],
                 [A.RIGHT, A.UP, A.DROP_PIZZA, A.DROP_PIZZA, A.RIGHT, A.UP, A.DROP_PIZZA, A.DROP_PIZZA, A.DROP_PIZZA],
+            ),
+            (
+                [L(0, 0), L(1, 3), L(4, 4), L(4, 2), L(4, 2), L(0, 1), L(3, 2), L(2, 3), L(4, 1)],
+                [
+                    A.DROP_PIZZA,
+                    A.UP, A.DROP_PIZZA,
+                    A.RIGHT, A.UP, A.UP, A.DROP_PIZZA,
+                    A.RIGHT, A.DROP_PIZZA,
+                    A.RIGHT, A.DOWN, A.DROP_PIZZA,
+                    A.RIGHT, A.DROP_PIZZA, A.DROP_PIZZA,
+                    A.DOWN, A.DROP_PIZZA,
+                    A.UP, A.UP, A.UP, A.DROP_PIZZA,
+                ],
             ),
         ]:
             start_location = L(0, 0)

@@ -26,8 +26,8 @@ so Docker must be installed (https://docs.docker.com/get-docker/)
   >"{x0}x{y0} ({x1}, {y1}) ({x2}, {y..."
 
   where:  
-  {x1}, {y1} - field height and width;  
-  {x1,2,3...}, {y1,2,3...} - houses in need of pizza coordinates;  
+  {x1}, {y1} - field height and width (integers);  
+  {x1,2,3...}, {y1,2,3...} - houses in need of pizza coordinates (integers);  
   
   example:
     

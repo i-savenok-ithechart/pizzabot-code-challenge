@@ -1,5 +1,5 @@
-#pizzabot-code-challenge
-##How to execute:
+# pizzabot-code-challenge
+## How to execute:
 
 - Through pizzabot.sh:
   >sudo bash ./pizzabot.sh [argument]
